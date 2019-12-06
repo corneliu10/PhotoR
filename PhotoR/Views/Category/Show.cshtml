@@ -1,13 +1,13 @@
-﻿@model Laborator4.Models.Category
+﻿@model PhotoR.Models.Category
 @{
     ViewBag.Title = "Afisare categorie";
 }
 
 <h2>@ViewBag.Title</h2>
 
-<p>@Model.CategoryName</p>
+<p>@Model.Name</p>
 
-@using (Html.BeginForm(actionName: "Delete", controllerName: "Category", routeValues: new {id = @Model.CategoryId }))
+@using (Html.BeginForm(actionName: "Delete", controllerName: "Category", routeValues: new {id = @Model.Id }))
 {
 
     @Html.HttpMethodOverride(HttpVerbs.Delete)
