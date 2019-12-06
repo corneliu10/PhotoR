@@ -1,0 +1,27 @@
+﻿@model PhotoR.Models.Album
+@{
+    ViewBag.Title = "Show Album";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>@Model.Name</p>
+
+<p>@Model.User.UserName</p>
+
+@*Delete Form*@
+@using (Html.BeginForm(actionName: "Delete", controllerName: "Album", routeValues: new { id = @Model.Id }))
+{
+
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+    <button class="btn btn-success" type="submit">Delete Album</button>
+}
+
+<br />
+<a class="btn btn-success" href="/Album/Index/">Show all albums</a>
+
+<br />
+<hr />
+<br />
+
