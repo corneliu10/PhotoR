@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace PhotoR.Models
 {
     public class Photo
     {
+        [Key]
         public int Id { get; set; }
 
         public DateTime CreatedAt { get; set; }
@@ -15,10 +17,10 @@ namespace PhotoR.Models
 
         public string Description { get; set; }
 
-        public int UserId { get; set; }
+        public virtual int UserId { get; set; }
 
-        public int CategoryId { get; set; }
+        public virtual int CategoryId { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }
