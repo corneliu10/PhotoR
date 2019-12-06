@@ -47,14 +47,7 @@ namespace PhotoR
                     userManager.AddToRole(user.Id, "Administrator");
                 }
             }
-            if (!roleManager.RoleExists("Editor"))
-            {
-                var role = new IdentityRole
-                {
-                    Name = "Editor"
-                };
-                roleManager.Create(role);
-            }
+            
             if (!roleManager.RoleExists("User"))
             {
                 var role = new IdentityRole
