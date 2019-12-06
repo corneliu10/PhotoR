@@ -8,7 +8,7 @@ namespace PhotoR.Models
 {
     public class PhotoRDBContext : DbContext
     {
-        public PhotoRDBContext() : base("DBConnectionString") { }
+        public PhotoRDBContext() : base("DefaultConnection") { }
         
         public DbSet<Category> Categories { get; set; }
 

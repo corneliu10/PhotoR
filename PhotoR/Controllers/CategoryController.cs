@@ -1,9 +1,6 @@
-﻿using Laborator4.Models;
-using Laborator7.Models;
+﻿using PhotoR.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PhotoR.Controllers
@@ -11,7 +8,7 @@ namespace PhotoR.Controllers
     [Authorize(Roles = "Administrator")]
     public class CategoryController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly PhotoRDBContext db = new PhotoRDBContext();
 
         // GET: Category
         public ActionResult Index()
@@ -22,7 +19,7 @@ namespace PhotoR.Controllers
             }
 
             var categories = from category in db.Categories
-                             orderby category.CategoryName
+                             orderby category.Name
                              select category;
             ViewBag.Categories = categories;
             return View();
@@ -46,6 +43,7 @@ namespace PhotoR.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    cat.CreatedAt = DateTime.Now;
                     db.Categories.Add(cat);
                     db.SaveChanges();
                     TempData["message"] = "Categoria a fost adaugata!";
@@ -78,7 +76,7 @@ namespace PhotoR.Controllers
                     Category category = db.Categories.Find(id);
                     if (TryUpdateModel(category))
                     {
-                        category.CategoryName = requestCategory.CategoryName;
+                        category.Name = requestCategory.Name;
                         TempData["message"] = "Categoria a fost modificata!";
                         db.SaveChanges();
                     }

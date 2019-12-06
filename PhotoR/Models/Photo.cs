@@ -13,7 +13,7 @@ namespace PhotoR.Models
 
         public DateTime CreatedAt { get; set; }
 
-        public Uri Uri { get; set; }
+        public string Uri { get; set; }
 
         public string Description { get; set; }
 
