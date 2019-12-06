@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Lista categorii";
+    ViewBag.Title = "Category list";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -13,17 +13,16 @@
 
 @foreach (var category in ViewBag.Categories)
 {
-    @Html.Label("Name", "Denumire categorie")
+    @Html.Label("Name", "Category name")
     <p>@category.Name</p>
-    <a class="btn btn-success" href="/Category/Show/@category.Id">Afisare categorie</a>
-    <a class="btn btn-success" href="/Category/Edit/@category.Id">Editare categorie</a>
+    <a class="btn btn-success" href="/Category/Show/@category.Id">Show category</a>
+    <a class="btn btn-success" href="/Category/Edit/@category.Id">Edit category</a>
     <br />
     <hr />
     <br />
 }
 <br />
-<a class="btn btn-info" href="/Category/New">Adauga o noua categorie</a>
+<a class="btn btn-info" href="/Category/New">Add category</a>
 <br /><br />
-<a class="btn btn-info" href="/Article/Index">Lista articole</a>
 <br />
 
