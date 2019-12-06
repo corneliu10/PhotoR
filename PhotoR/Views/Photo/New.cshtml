@@ -1,0 +1,34 @@
+﻿@model PhotoR.Models.Photo
+@{
+    ViewBag.Title = "Add new photo";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Photo"))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Uri", "Uri")
+    <br />
+
+    @Html.TextBox("Uri", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Uri, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Category", "Category")
+    <br />
+    <select name="CategoryId">
+        @foreach (var category in ViewBag.Categories)
+        {
+            <option value="@category.Id">
+                @category.Name
+            </option>
+        }
+    </select>
+    <br />
+    <br />
+
+    <button class="btn btn-success" type="submit">Add photo</button>
+}
+

@@ -1,0 +1,28 @@
+﻿@model PhotoR.Models.Photo
+@{
+    ViewBag.Title = "Your photos";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
+}
+
+@foreach (var photo in ViewBag.Photos)
+{
+    @Html.Label("Name", "Photo name")
+    <p>@photo.Uri</p>
+    <a class="btn btn-success" href="/Album/Show/@photo.Id">Show photo</a>
+    <a class="btn btn-success" href="/Album/Edit/@photo.Id">Edit photo</a>
+    <br />
+    <hr />
+    <br />
+}
+
+<br />
+<a class="btn btn-info" href="/Photo/New">Add new photo</a>
+<br />
+

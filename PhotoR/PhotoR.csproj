@@ -173,6 +173,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,6 +255,10 @@
     <Content Include="Views\Album\New.cshtml" />
     <Content Include="Views\Album\Show.cshtml" />
     <Content Include="Views\Album\Edit.cshtml" />
+    <Content Include="Views\Photo\Edit.cshtml" />
+    <Content Include="Views\Photo\Index.cshtml" />
+    <Content Include="Views\Photo\New.cshtml" />
+    <Content Include="Views\Photo\Show.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
