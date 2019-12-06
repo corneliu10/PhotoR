@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoR", "PhotoR\PhotoR.csproj", "{DFC4583C-5149-49D8-9E28-C8B1CFEA618E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhotoR", "PhotoR\PhotoR.csproj", "{902B7DE1-C3E1-4DBF-A93E-8B1E854D2A47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DFC4583C-5149-49D8-9E28-C8B1CFEA618E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFC4583C-5149-49D8-9E28-C8B1CFEA618E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFC4583C-5149-49D8-9E28-C8B1CFEA618E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFC4583C-5149-49D8-9E28-C8B1CFEA618E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{902B7DE1-C3E1-4DBF-A93E-8B1E854D2A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{902B7DE1-C3E1-4DBF-A93E-8B1E854D2A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{902B7DE1-C3E1-4DBF-A93E-8B1E854D2A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{902B7DE1-C3E1-4DBF-A93E-8B1E854D2A47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8D1E46A6-0DF2-4C8C-9F26-FE21433919B8}
+		SolutionGuid = {AE50643A-785E-482D-926A-D326A7FE5DA3}
 	EndGlobalSection
 EndGlobal

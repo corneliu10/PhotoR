@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
@@ -14,8 +13,6 @@ namespace PhotoR
         {
             ConfigureAuth(app);
 
-            // Se apeleaza o metoda in care se adauga contul de administrator si
-            // rolurile aplicatiei
             CreateAdminUserAndApplicationRoles();
         }
 
@@ -24,7 +21,6 @@ namespace PhotoR
             ApplicationDbContext context = new ApplicationDbContext();
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-
             // Se adauga rolurile aplicatiei
             if (!roleManager.RoleExists("Administrator"))
             {
@@ -34,7 +30,6 @@ namespace PhotoR
                     Name = "Administrator"
                 };
                 roleManager.Create(role);
-
                 // se adauga utilizatorul administrator
                 var user = new ApplicationUser
                 {
@@ -47,7 +42,7 @@ namespace PhotoR
                     userManager.AddToRole(user.Id, "Administrator");
                 }
             }
-            
+
             if (!roleManager.RoleExists("User"))
             {
                 var role = new IdentityRole
@@ -56,7 +51,6 @@ namespace PhotoR
                 };
                 roleManager.Create(role);
             }
-
             context?.Dispose();
             roleManager?.Dispose();
             userManager?.Dispose();
