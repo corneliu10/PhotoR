@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace PhotoR.Models
 {
@@ -17,9 +15,13 @@ namespace PhotoR.Models
 
         public string Description { get; set; }
 
-        public virtual int UserId { get; set; }
+        public int UserId { get; set; }
+        
+        public virtual ApplicationUser User { get; set; }
 
-        public virtual int CategoryId { get; set; }
+        public int CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
     }

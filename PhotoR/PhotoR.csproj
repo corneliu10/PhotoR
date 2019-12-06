@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlbumController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -182,7 +183,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Photo.cs" />
-    <Compile Include="Models\PhotoRDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -250,6 +250,10 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\New.cshtml" />
     <Content Include="Views\Category\Show.cshtml" />
+    <Content Include="Views\Album\Index.cshtml" />
+    <Content Include="Views\Album\New.cshtml" />
+    <Content Include="Views\Album\Show.cshtml" />
+    <Content Include="Views\Album\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

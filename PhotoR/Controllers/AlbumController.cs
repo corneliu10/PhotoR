@@ -1,12 +1,13 @@
-﻿using PhotoR.Models;
+﻿using Microsoft.AspNet.Identity;
+using PhotoR.Models;
 using System;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace PhotoR.Controllers
 {
-    [Authorize(Roles = "Administrator")]
-    public class CategoryController : Controller
+    [Authorize(Roles = "User,Administrator")]
+    public class AlbumController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
 
@@ -18,17 +19,17 @@ namespace PhotoR.Controllers
                 ViewBag.message = TempData["message"].ToString();
             }
 
-            var categories = from category in db.Categories
-                             orderby category.Name
-                             select category;
-            ViewBag.Categories = categories;
+            var albums = from album in db.Albums
+                         orderby album.Name
+                         select album;
+            ViewBag.Albums = albums;
             return View();
         }
 
         public ActionResult Show(int id)
         {
-            Category category = db.Categories.Find(id);
-            return View(category);
+            Album album = db.Albums.Find(id);
+            return View(album);
         }
 
         public ActionResult New()
@@ -37,69 +38,72 @@ namespace PhotoR.Controllers
         }
 
         [HttpPost]
-        public ActionResult New(Category cat)
+        public ActionResult New(Album album)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    cat.CreatedAt = DateTime.Now;
-                    db.Categories.Add(cat);
+                    album.CreatedAt = DateTime.Now;
+                    album.UserId = User.Identity.GetUserId();
+                    db.Albums.Add(album);
                     db.SaveChanges();
-                    TempData["message"] = "Categoria a fost adaugata!";
+                    TempData["message"] = "Album was saved!";
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View(cat);
+                    return View(album);
                 }
             }
             catch (Exception e)
             {
-                return View(cat);
+                return View(album);
             }
         }
 
         public ActionResult Edit(int id)
         {
-            Category category = db.Categories.Find(id);
-            return View(category);
+            Album album = db.Albums.Find(id);
+            return View(album);
         }
 
         [HttpPut]
-        public ActionResult Edit(int id, Category requestCategory)
+        public ActionResult Edit(int id, Album requestAlbum)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    Category category = db.Categories.Find(id);
-                    if (TryUpdateModel(category))
+                    Album album = db.Albums.Find(id);
+                    if (TryUpdateModel(album))
                     {
-                        category.Name = requestCategory.Name;
-                        TempData["message"] = "Categoria a fost modificata!";
+                        album.Name = requestAlbum.Name;
+                        TempData["message"] = "Album was changed!";
                         db.SaveChanges();
                     }
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View(requestCategory);
+                    return View(requestAlbum);
                 }
             }
             catch (Exception e)
             {
-                return View(requestCategory);
+                return View(requestAlbum);
             }
         }
 
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            TempData["message"] = "Categoria a fost stearsa!";
+            Album album = db.Albums.Find(id);
+
+            db.Albums.Remove(album);
+            TempData["message"] = "Album was deleted!";
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
     }

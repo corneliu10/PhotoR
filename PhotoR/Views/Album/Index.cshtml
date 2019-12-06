@@ -1,0 +1,28 @@
+﻿@model PhotoR.Models.Album
+@{
+    ViewBag.Title = "Your albums";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+@if (TempData.ContainsKey("message"))
+{
+    <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
+}
+
+@foreach (var album in ViewBag.Albums)
+{
+    @Html.Label("Name", "Album name")
+    <p>@album.Name</p>
+    <a class="btn btn-success" href="/Album/Show/@album.Id">Show album</a>
+    <a class="btn btn-success" href="/Album/Edit/@album.Id">Edit album</a>
+    <br />
+    <hr />
+    <br />
+}
+
+<br />
+<a class="btn btn-info" href="/Album/New">Add new album</a>
+<br />
+
