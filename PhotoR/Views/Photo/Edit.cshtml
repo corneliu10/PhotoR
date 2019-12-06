@@ -1,6 +1,6 @@
-﻿@model PhotoR.Models.Album
+﻿@model PhotoR.Models.Photo
 @{
-    ViewBag.Title = "Edit album";
+    ViewBag.Title = "Edit photo";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -13,10 +13,10 @@
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-    @Html.Label("Name", "Album name")
+    @Html.Label("Uri", "Photo uri")
     <br />
-    @Html.Editor("Name")
-    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    @Html.Editor("Uri")
+    @Html.ValidationMessageFor(m => m.Uri, "", new { @class = "text-danger" })
     <br /><br />
 
     <button class="btn btn-success" type="submit">Save edits</button>
