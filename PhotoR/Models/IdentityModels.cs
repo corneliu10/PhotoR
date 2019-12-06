@@ -29,5 +29,11 @@ namespace PhotoR.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Photo> Photos { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
     }
 }

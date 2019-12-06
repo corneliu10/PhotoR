@@ -8,7 +8,7 @@ namespace PhotoR.Controllers
     [Authorize(Roles = "Administrator")]
     public class CategoryController : Controller
     {
-        private readonly PhotoRDBContext db = new PhotoRDBContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Category
         public ActionResult Index()
