@@ -1,0 +1,23 @@
+﻿@model PhotoR.Models.Album
+@{
+    ViewBag.Title = "Edit album";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Photo"))
+{
+    @Html.Hidden("Id", Model.Id)
+
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+    @Html.Label("Name", "Album name")
+    <br />
+    @Html.Editor("Name")
+    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    <br /><br />
+
+    <button class="btn btn-success" type="submit">Save edits</button>
+}
