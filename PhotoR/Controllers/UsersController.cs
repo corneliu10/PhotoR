@@ -19,7 +19,6 @@ namespace PhotoR.Controllers
         {
             var currentUser = User.Identity.GetUserId();
             var users = from user in db.Users
-                        where user.Id != currentUser
                         orderby user.UserName
                         select user;
             ViewBag.UsersList = users;
@@ -35,12 +34,10 @@ namespace PhotoR.Controllers
             
             var roles = db.Roles.ToList();
 
-            var roleName = roles.Where(j => j.Id ==
-               user.Roles.FirstOrDefault().RoleId).
-               Select(a => a.Name).FirstOrDefault();
-            var currentUserRole = roles.Where(j => j.Id ==
-               currentUser.Roles.FirstOrDefault().RoleId).
-               Select(a => a.Name).FirstOrDefault();
+            var roleName = roles.FirstOrDefault(r => 
+               r.Id == user.Roles.FirstOrDefault().RoleId).Name;
+            var currentUserRole = roles.FirstOrDefault(j => j.Id ==
+               currentUser.Roles.FirstOrDefault().RoleId).Name;
 
             ViewBag.roleName = roleName;
             ViewBag.isAdmin = currentUserRole == "Administrator";
