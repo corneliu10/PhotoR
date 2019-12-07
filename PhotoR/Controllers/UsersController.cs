@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace PhotoR.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
@@ -29,21 +29,26 @@ namespace PhotoR.Controllers
         public ActionResult Show(string id)
         {
             ApplicationUser user = db.Users.Find(id);
-            ViewBag.currentUser = User.Identity.GetUserId();
-
-
+            var currentUserId = User.Identity.GetUserId();
+            ViewBag.currentUser = currentUserId;
+            ApplicationUser currentUser = db.Users.Find(currentUserId);
+            
             var roles = db.Roles.ToList();
 
             var roleName = roles.Where(j => j.Id ==
                user.Roles.FirstOrDefault().RoleId).
                Select(a => a.Name).FirstOrDefault();
+            var currentUserRole = roles.Where(j => j.Id ==
+               currentUser.Roles.FirstOrDefault().RoleId).
+               Select(a => a.Name).FirstOrDefault();
 
             ViewBag.roleName = roleName;
-
+            ViewBag.isAdmin = currentUserRole == "Administrator";
 
             return View(user);
         }
 
+        [Authorize(Roles = "Administrator")]
         [HttpDelete]
         public ActionResult Delete(string id)
         {
