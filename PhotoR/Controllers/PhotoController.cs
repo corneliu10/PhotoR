@@ -6,7 +6,6 @@ using System.Web.Mvc;
 
 namespace PhotoR.Controllers
 {
-    [Authorize(Roles = "User,Administrator")]
     public class PhotoController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
@@ -30,6 +29,7 @@ namespace PhotoR.Controllers
             return View(photo);
         }
 
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult New()
         {
             var categories = from category in db.Categories
@@ -39,6 +39,7 @@ namespace PhotoR.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult New(Photo photo)
         {
             try
@@ -63,6 +64,7 @@ namespace PhotoR.Controllers
             }
         }
 
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id)
         {
             Photo photo = db.Photos.Find(id);
@@ -70,6 +72,7 @@ namespace PhotoR.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Edit(int id, Photo requestPhoto)
         {
             try
@@ -97,6 +100,7 @@ namespace PhotoR.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "User,Administrator")]
         public ActionResult Delete(int id)
         {
             Photo photo = db.Photos.Find(id);
