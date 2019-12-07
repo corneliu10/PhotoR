@@ -26,6 +26,10 @@ namespace PhotoR.Controllers
         public ActionResult Show(int id)
         {
             Photo photo = db.Photos.Find(id);
+
+            // get Comments
+            ViewBag.Comments = db.Comments.Where(c => c.PhotoId == id).OrderByDescending(c => c.CreatedAt);
+
             return View(photo);
         }
 
@@ -34,7 +38,7 @@ namespace PhotoR.Controllers
         {
             var categories = from category in db.Categories
                              select category;
-            ViewBag.Categories = categories;
+            ViewBag.Categories = categories.ToList();
             return View();
         }
 
@@ -55,7 +59,7 @@ namespace PhotoR.Controllers
                 }
                 else
                 {
-                    return View(photo);
+                    return RedirectToAction("New");
                 }
             }
             catch (Exception e)
@@ -110,6 +114,39 @@ namespace PhotoR.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult AddComment(string content, int photoId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Comment comment = new Comment
+                    {
+                        Content = content,
+                        UserId = User.Identity.GetUserId(),
+                        PhotoId = photoId,
+                        CreatedAt = DateTime.Now
+                    };
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
+                    TempData["message"] = "Comment was saved!";
+                    return RedirectToAction("Show/" + photoId);
+                }
+                else
+                {
+                    return RedirectToAction("Show/" + photoId);
+                }
+            }
+            catch (Exception e)
+            {
+                //return View(photo);
+            }
+
+            return null;
         }
     }
 }

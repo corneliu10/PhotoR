@@ -14,18 +14,31 @@
 @*Delete Form*@
 @using (Html.BeginForm(actionName: "Delete", controllerName: "Photo", routeValues: new { id = @Model.Id }))
 {
-
     @Html.HttpMethodOverride(HttpVerbs.Delete)
 
     <button class="btn btn-success" type="submit">Delete Photo</button>
+    <br />
     <br />
     <a class="btn btn-success" href="/Photo/Index/">Show all photos</a>
 }
 
 <br />
-<a class="btn btn-success" href="/Photo/Index/">Show all photos</a>
-
-<br />
 <hr />
+
+@using (Html.BeginForm(actionName: "AddComment", controllerName: "Photo"))
+{
+    @Html.Label("Comment", "Add comment")
+    @Html.TextBox("content", null, new { @class = "form-control" })
+
+    <input name="photoId" type="hidden" value="@Model.Id" />
+
+    <button class="btn btn-success" type="submit">Add comment</button>
+}
+
 <br />
 
+@foreach (var comment in ViewBag.Comments)
+{
+    <p>@comment.Content - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
+    <br />
+}
