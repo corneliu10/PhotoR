@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace PhotoR.Controllers
 {
-    
+    [Authorize(Roles = "User,Administrator")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
@@ -39,8 +39,11 @@ namespace PhotoR.Controllers
             var currentUserRole = roles.FirstOrDefault(j => j.Id ==
                currentUser.Roles.FirstOrDefault().RoleId).Name;
 
+            var albums = db.Albums.Where(a => a.UserId == currentUserId);
+
             ViewBag.roleName = roleName;
             ViewBag.isAdmin = currentUserRole == "Administrator";
+            ViewBag.albums = albums;
 
             return View(user);
         }
