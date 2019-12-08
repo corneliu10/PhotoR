@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhotoR.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,8 +9,12 @@ namespace PhotoR.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
+            var recentPhotos = _db.Photos.OrderByDescending(p => p.CreatedAt).Take(5);
+            ViewBag.RecentPhotos = recentPhotos;
             return View();
         }
 
