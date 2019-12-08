@@ -3,6 +3,11 @@
     ViewBag.Title = "Show Photo";
 }
 
+@if (TempData.ContainsKey("message"))
+{
+    <h3 class="alert alert-info" role="alert">@TempData["message"]</h3>
+}
+
 <h2>@ViewBag.Title</h2>
 
 <p>@Model.Uri</p>
@@ -37,8 +42,23 @@
 
 <br />
 
+@{
+    ViewBag.CommentsPermission = Model.UserId == ViewBag.CurrentUser.Id || ViewBag.IsAdmin;
+}
+
 @foreach (var comment in ViewBag.Comments)
 {
     <p>@comment.Content - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
-    <br />
+
+    if (ViewBag.CommentsPermission || comment.UserId == ViewBag.CurrentUser.Id)
+    {
+        using (Html.BeginForm(actionName: "DeleteComment", controllerName: "Photo", routeValues: new { commentId = comment.Id, photoId = Model.Id }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <br />
+            <button class="btn btn-success" type="submit">Delete Comment</button>
+        }
+    }
+
+    <hr />
 }

@@ -3,6 +3,7 @@ using PhotoR.Models;
 using System;
 using System.Linq;
 using System.Web.Mvc;
+using PhotoR.Helpers;
 
 namespace PhotoR.Controllers
 {
@@ -29,6 +30,8 @@ namespace PhotoR.Controllers
 
             // get Comments
             ViewBag.Comments = db.Comments.Where(c => c.PhotoId == id).OrderByDescending(c => c.CreatedAt);
+            ViewBag.CurrentUser = UsersHelper.GetUserById(User.Identity.GetUserId());
+            ViewBag.IsAdmin = UsersHelper.IsUserAdmin(ViewBag.CurrentUser);
 
             return View(photo);
         }
@@ -114,6 +117,19 @@ namespace PhotoR.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult DeleteComment(int commentId, int photoId)
+        {
+            Comment comment = db.Comments.Find(commentId);
+
+            TempData["message"] = $"Comment '{comment.Content}' was deleted!";
+            db.Comments.Remove(comment);
+            db.SaveChanges();
+
+            return RedirectToAction($"Show/{photoId}");
         }
 
         [HttpPost]
