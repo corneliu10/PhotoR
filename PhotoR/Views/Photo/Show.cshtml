@@ -43,13 +43,25 @@
 <br />
 
 @{
-    ViewBag.CommentsPermission = Model.UserId == ViewBag.CurrentUser.Id || ViewBag.IsAdmin;
+    ViewBag.CommentsPermission = (Model.UserId == ViewBag.CurrentUser.Id || ViewBag.IsAdmin);
 }
 
 @foreach (var comment in ViewBag.Comments)
 {
-    <p>@comment.Content - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
+    if (comment.UserId == ViewBag.CurrentUser.Id)
+    {
+        <form method="post" action="/Photo/EditComment/@comment.Id">
+            @Html.HttpMethodOverride(HttpVerbs.Put)
 
+            <p><input type="text" name="Content" value="@comment.Content" /> - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
+            <input type="hidden" value="@Model.Id" name="photoId" />
+            <button class="btn btn-success" type="submit">Save edits</button>
+        </form>
+    }
+    else
+    {
+        <p>@comment.Content - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
+    }
     if (ViewBag.CommentsPermission || comment.UserId == ViewBag.CurrentUser.Id)
     {
         using (Html.BeginForm(actionName: "DeleteComment", controllerName: "Photo", routeValues: new { commentId = comment.Id, photoId = Model.Id }))

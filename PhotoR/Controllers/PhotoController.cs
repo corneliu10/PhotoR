@@ -164,5 +164,33 @@ namespace PhotoR.Controllers
 
             return null;
         }
+
+        [HttpPut]
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult EditComment(int id, Comment requestComment, int photoId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Comment comment = db.Comments.Find(id);
+                    if (TryUpdateModel(comment))
+                    {
+                        comment.Content = requestComment.Content;
+                        TempData["message"] = "Comment was changed!";
+                        db.SaveChanges();
+                    }
+                    return RedirectToAction($"Show/{photoId}");
+                }
+                else
+                {
+                    return View($"Show/{photoId}");
+                }
+            }
+            catch (Exception e)
+            {
+                return View($"Show/{photoId}");
+            }
+        }
     }
 }
