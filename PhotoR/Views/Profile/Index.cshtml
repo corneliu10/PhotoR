@@ -1,0 +1,48 @@
+﻿@model PhotoR.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "My Profile";
+}
+
+<ol class="breadcrumb">
+    <li><h3>@ViewBag.Title</h3></li>
+</ol>
+
+<div class="panel-heading">User name: @Model.UserName</div>
+
+<div class="panel-body">
+
+    <i class="glyphicon glyphicon-envelope"></i> User e-mail address: <span class="label label-default">@Model.Email</span>
+    <br />
+
+    <br /><br />
+
+    @if (@Model.PhoneNumber != null)
+    {
+        <i class="glyphicon glyphicon-phone"></i>@:User phone number:<span class="label label-default">@Model.PhoneNumber</span>
+
+    }
+
+</div>
+
+    <div class="panel-footer">
+        @using (Html.BeginForm(actionName: "Delete", controllerName: "Profile"))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <br />
+            <button class="btn btn-success" type="submit">Delete my account</button>
+
+        }
+    </div>
+
+@foreach (var album in ViewBag.albums)
+{
+    <div class="panel-heading">Album name: @album.Name</div>
+
+    <div class="panel-body">
+
+        <i class="glyphicon glyphicon-time"></i> Added on: <span class="label label-default">@album.CreatedAt</span>
+
+        <br /><br />
+    </div>
+}
