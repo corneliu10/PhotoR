@@ -1,7 +1,7 @@
 ﻿@model PhotoR.Models.ApplicationUser
 
 @{
-    ViewBag.Title = "User details";
+    ViewBag.Title = "My Profile";
 }
 
 <ol class="breadcrumb">
@@ -21,29 +21,19 @@
     {
         <i class="glyphicon glyphicon-phone"></i>@:User phone number:<span class="label label-default">@Model.PhoneNumber</span>
 
-
-
-
-
-
-
-
     }
 
 </div>
 
-@if (Model.Id == ViewBag.currentUser || ViewBag.isAdmin)
-{
     <div class="panel-footer">
-        @using (Html.BeginForm(actionName: "Delete", controllerName: "Users", routeValues: new { id = @Model.Id }))
+        @using (Html.BeginForm(actionName: "Delete", controllerName: "Profile"))
         {
             @Html.HttpMethodOverride(HttpVerbs.Delete)
             <br />
-            <button class="btn btn-success" type="submit">Delete user</button>
+            <button class="btn btn-success" type="submit">Delete my account</button>
 
         }
     </div>
-}
 
 @foreach (var album in ViewBag.albums)
 {
