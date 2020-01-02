@@ -7,16 +7,27 @@
 
 <p>@Model.Name</p>
 
-@using (Html.BeginForm(actionName: "Delete", controllerName: "Category", routeValues: new {id = @Model.Id }))
+@using (Html.BeginForm(actionName: "Delete", controllerName: "Category", routeValues: new { id = @Model.Id }))
 {
 
     @Html.HttpMethodOverride(HttpVerbs.Delete)
 
     <button class="btn btn-success" type="submit">Delete category</button>
 }
-    <br />
-    <a class="btn btn-success" href="/Category/Index/">Show category list</a>
+<br />
+<a class="btn btn-success" href="/Category/Index/">Show category list</a>
 
+<br />
+<hr />
+<br />
+
+@foreach (var photo in ViewBag.Photos)
+{
+    @Html.Label("Name", "Photo name")
+    <p>@photo.Uri</p>
+    <a class="btn btn-success" href="/Photo/Show/@photo.Id">Show photo</a>
+    <a class="btn btn-success" href="/Photo/Edit/@photo.Id">Edit photo</a>
     <br />
     <hr />
     <br />
+}

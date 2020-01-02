@@ -28,6 +28,10 @@ namespace PhotoR.Controllers
         public ActionResult Show(int id)
         {
             Category category = db.Categories.Find(id);
+            var photos = from photo in db.Photos
+                         where photo.CategoryId == id
+                         select photo;
+            ViewBag.Photos = photos;
             return View(category);
         }
 
