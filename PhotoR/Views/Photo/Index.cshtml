@@ -1,6 +1,6 @@
 ﻿@model PhotoR.Models.Photo
 @{
-    ViewBag.Title = "Your photos";
+    ViewBag.Title = "All photos";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -10,6 +10,26 @@
 {
     <h3 class="alert alert-info" role="alert">@ViewBag.message</h3>
 }
+
+@using (Html.BeginForm("Search", "Photo"))
+{
+    @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Description)
+    <br />
+    <br />
+    <button type="submit" class="btn btn-success">Search</button>
+    <a class="btn btn-success" href="/Photo/Index">All photos</a>
+}
+
+<br />
+<hr />
+<br />
+
+<br />
+<a class="btn btn-info" href="/Photo/New">Add new photo</a>
+<br />
+<br />
+<hr/>
 
 @foreach (var photo in ViewBag.Photos)
 {
@@ -22,7 +42,7 @@
     <br />
 }
 
-<br />
-<a class="btn btn-info" href="/Photo/New">Add new photo</a>
+
+
 <br />
 

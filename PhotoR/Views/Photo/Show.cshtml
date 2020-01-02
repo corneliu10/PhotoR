@@ -10,21 +10,26 @@
 
 <h2>@ViewBag.Title</h2>
 
+<p>@Model.Description</p>
+
 <p>@Model.Uri</p>
 
 <p>@Model.Category.Name</p>
 
 <p>@Model.User.UserName</p>
 
+
 @*Delete Form*@
 @using (Html.BeginForm(actionName: "Delete", controllerName: "Photo", routeValues: new { id = @Model.Id }))
 {
-    @Html.HttpMethodOverride(HttpVerbs.Delete)
-
-    <button class="btn btn-success" type="submit">Delete Photo</button>
-    <br />
-    <br />
-    <a class="btn btn-success" href="/Photo/Index/">Show all photos</a>
+    if (ViewBag.isAdmin || @Model.UserId == ViewBag.CurrentUser.Id)
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-success" type="submit">Delete Photo</button>
+        <br />
+        <br />
+        <a class="btn btn-success" href="/Photo/Index/">Show all photos</a>
+    }
 }
 
 <br />

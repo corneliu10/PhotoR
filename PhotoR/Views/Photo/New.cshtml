@@ -29,6 +29,13 @@
     @Html.ValidationMessageFor(m => m.Uri, "", new { @class = "text-danger" })
     <br />
 
+    @Html.Label("Description", "Description")
+    <br />
+
+    @Html.TextBox("Description", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+    <br />
+
     @Html.Label("Category", "Category")
     <br />
     <select name="CategoryId">
