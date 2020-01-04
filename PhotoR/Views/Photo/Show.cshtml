@@ -10,12 +10,21 @@
 
 <h2>@ViewBag.Title</h2>
 
+
+@Html.Label("Photo name")
+<p>@Model.FileName</p>
+<div>
+    <img src="~/Assets/@Model.FileName" alt="Photo unavailable" width="200" height="200" />
+</div>
+<br />
+
+@Html.Label("Description")
 <p>@Model.Description</p>
 
-<p>@Model.Uri</p>
-
+@Html.Label("Category")
 <p>@Model.Category.Name</p>
 
+@Html.Label("User")
 <p>@Model.User.UserName</p>
 
 
@@ -41,6 +50,7 @@
     @Html.TextBox("content", null, new { @class = "form-control" })
 
     <input name="photoId" type="hidden" value="@Model.Id" />
+    <br />
 
     <button class="btn btn-success" type="submit">Add comment</button>
 }
@@ -60,6 +70,7 @@
 
             <p><input type="text" name="Content" value="@comment.Content" /> - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
             <input type="hidden" value="@Model.Id" name="photoId" />
+
             <button class="btn btn-success" type="submit">Save edits</button>
         </form>
     }

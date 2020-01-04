@@ -23,8 +23,12 @@
 
 @foreach (var photo in ViewBag.Photos)
 {
-    @Html.Label("Name", "Photo name")
-    <p>@photo.Uri</p>
+    @Html.Label("Photo name")
+    <p>@photo.FileName</p>
+    <div>
+        <img src="~/Assets/@photo.FileName" alt="Photo unavailable" width="100px" height="100px" />
+    </div>
+    <br/>
     <a class="btn btn-success" href="/Photo/Show/@photo.Id">Show photo</a>
     <a class="btn btn-success" href="/Photo/Edit/@photo.Id">Edit photo</a>
     <br />

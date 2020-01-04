@@ -13,11 +13,5 @@
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-    @Html.Label("Uri", "Photo uri")
-    <br />
-    @Html.Editor("Uri")
-    @Html.ValidationMessageFor(m => m.Uri, "", new { @class = "text-danger" })
-    <br /><br />
-
     <button class="btn btn-success" type="submit">Save edits</button>
 }

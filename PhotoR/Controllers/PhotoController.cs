@@ -4,6 +4,8 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using PhotoR.Helpers;
+using System.Web;
+using System.IO;
 
 namespace PhotoR.Controllers
 {
@@ -60,12 +62,31 @@ namespace PhotoR.Controllers
 
         [HttpPost]
         [Authorize(Roles = "User,Administrator")]
-        public ActionResult New(Photo photo)
+        public ActionResult New(string description, int categoryId, HttpPostedFileBase file)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    string fileName = null;
+                    if (file != null)
+                    {
+                        if (file.ContentLength <= 0)
+                        {
+                            throw new Exception("Error while uploading");
+                        }
+
+                        fileName = Path.GetFileName(file.FileName);
+                        string path = Path.Combine(Server.MapPath("~/Assets"), fileName);
+                        file.SaveAs(path);
+                    }
+
+                    var photo = new Photo
+                    {
+                        Description = description,
+                        CategoryId = categoryId,
+                        FileName = fileName
+                    };
                     photo.CreatedAt = DateTime.Now;
                     photo.UserId = User.Identity.GetUserId();
                     db.Photos.Add(photo);
@@ -80,7 +101,7 @@ namespace PhotoR.Controllers
             }
             catch (Exception e)
             {
-                return View(photo);
+                return View();
             }
         }
 
@@ -102,7 +123,7 @@ namespace PhotoR.Controllers
                     Photo photo = db.Photos.Find(id);
                     if (TryUpdateModel(photo))
                     {
-                        photo.Uri = requestPhoto.Uri;
+                        photo.FileName = requestPhoto.FileName;
                         TempData["message"] = "Photo was changed!";
                         db.SaveChanges();
                     }
