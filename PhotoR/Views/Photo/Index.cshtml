@@ -28,25 +28,16 @@
 <br />
 <a class="btn btn-info" href="/Photo/New">Add new photo</a>
 <br />
-<br />
-<hr/>
+<hr />
 
-@foreach (var photo in ViewBag.Photos)
-{
-    @Html.Label("Photo name")
-    <p>@photo.FileName</p>
-    <div>
-        <img src="~/Assets/@photo.FileName" alt="Photo unavailable" width="100px" height="100px" />
-    </div>
-    <br/>
-    <a class="btn btn-success" href="/Photo/Show/@photo.Id">Show photo</a>
-    <a class="btn btn-success" href="/Photo/Edit/@photo.Id">Edit photo</a>
-    <br />
-    <hr />
-    <br />
-}
-
-
-
-<br />
-
+<div id="columns">
+    @foreach (var photo in ViewBag.Photos)
+    {
+        <figure>
+            <a href="/Photo/Show/@photo.Id">
+                <img src="~/Assets/@photo.FileName" alt="Photo unavailable" />
+            </a>
+            <figcaption><i>@photo.Description</i> - created at @photo.CreatedAt.ToString()</figcaption>
+        </figure>
+    }
+</div>

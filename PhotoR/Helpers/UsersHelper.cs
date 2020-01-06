@@ -12,6 +12,11 @@ namespace PhotoR.Helpers
 
         public static string GetUserRoleName(ApplicationUser user)
         {
+            if (user == null)
+            {
+                return "NotUser";
+            }
+
             var roles = db.Roles.ToList();
 
             return roles.FirstOrDefault(j => j.Id ==

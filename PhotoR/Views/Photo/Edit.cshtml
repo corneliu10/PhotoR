@@ -2,16 +2,81 @@
 @{
     ViewBag.Title = "Edit photo";
 }
+<br />
 
-<h2>@ViewBag.Title</h2>
+@Html.Label("Photo name")
+<p>@Model.FileName</p>
+<div>
+    <a href="/Photo/ImageEditor/@Model.Id">
+        <img src="~/Assets/@Model.FileName" alt="Photo unavailable" width="200" height="200" />
+    </a>
+</div>
+<br />
 
 @using (Html.BeginForm(actionName: "Edit", controllerName: "Photo"))
 {
     @Html.Hidden("Id", Model.Id)
 
+    @Html.Hidden("FileName", Model.FileName)
+
+    @Html.Hidden("UserId", Model.UserId)
+
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
+    @Html.Label("Description", "Description")
+    <br />
+    @Html.Editor("Description")
+    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("CategoryId", "Category:")
+    <br />
+    <select name="CategoryId">
+        @foreach (var category in ViewBag.Categories)
+        {
+            if (category.Id == Model.Category.Id)
+            {
+                <option value="@category.Id" selected>
+                    @category.Name
+                </option>
+            }
+            else
+            {
+                <option value="@category.Id">
+                    @category.Name
+                </option>
+            }
+        }
+    </select>
+    <br />
+
+    @Html.Label("AlbumId", "Album:")
+    <br />
+    <select name="AlbumId">
+        @foreach (var album in ViewBag.Albums)
+        {
+            if (album.Id == Model.Album.Id)
+            {
+                <option value="@album.Id" selected>
+                    @album.Name
+                </option>
+            }
+            else
+            {
+                <option value="@album.Id">
+                    @album.Name
+                </option>
+            }
+        }
+    </select>
+    <br />
+    <br />
+
     <button class="btn btn-success" type="submit">Save edits</button>
 }
+
+<br />
+
+<a class="btn btn-danger" href="/Photo/Show/@Model.Id">Cancel</a>

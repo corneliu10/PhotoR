@@ -24,5 +24,9 @@ namespace PhotoR.Models
         public virtual Category Category { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public int AlbumId { get; set; }
+
+        public virtual Album Album { get; set; }
     }
 }

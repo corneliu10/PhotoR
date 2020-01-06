@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using PhotoR.Helpers;
 using PhotoR.Models;
 using System;
 using System.Linq;
@@ -29,6 +30,9 @@ namespace PhotoR.Controllers
         public ActionResult Show(int id)
         {
             Album album = db.Albums.Find(id);
+            var allUserPhotos = from photo in db.Photos
+                                select photo;
+            ViewBag.AllUserPhotos = allUserPhotos;
             return View(album);
         }
 
@@ -105,6 +109,34 @@ namespace PhotoR.Controllers
             db.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AddPhoto(int albumId)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var photo = new Photo
+                    {
+                       
+                    };
+                    photo.CreatedAt = DateTime.Now;
+                    photo.UserId = User.Identity.GetUserId();
+                    db.Photos.Add(photo);
+                    db.SaveChanges();
+                    TempData["message"] = "Photo was saved!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("New");
+                }
+            }
+            catch (Exception e)
+            {
+                return View();
+            }
         }
     }
 }

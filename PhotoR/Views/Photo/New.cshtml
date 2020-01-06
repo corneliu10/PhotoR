@@ -9,14 +9,14 @@
 {
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-    @Html.Label("Description", "Description")
+    @Html.Label("description", "Description:")
     <br />
 
     @Html.TextBox("description", null, new { @class = "form-control" })
     @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
     <br />
 
-    @Html.Label("Category", "Category")
+    @Html.Label("categoryId", "Category:")
     <br />
     <select name="categoryId">
         @foreach (var category in ViewBag.Categories)
@@ -29,11 +29,22 @@
     <br />
     <br />
 
+    @Html.Label("albumId", "Album:")
+    <br />
+    <select name="albumId">
+        @foreach (var album in ViewBag.Albums)
+        {
+            <option value="@album.Id">
+                @album.Name
+            </option>
+        }
+    </select>
+    <br />
+    <br />
+
     <label for="file"> Upload Image:</label>
     <input type="file" name="file" id="file" style="width: 100%;" />
-
     <br />
 
     <button class="btn btn-success" type="submit">Add photo</button>
 }
-

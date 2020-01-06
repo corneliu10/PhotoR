@@ -56,13 +56,16 @@ namespace PhotoR.Controllers
         {
             var categories = from category in db.Categories
                              select category;
+            var userId = User.Identity.GetUserId();
+            var albums = db.Albums.Where(a => a.UserId == userId);
+            ViewBag.Albums = albums.ToList();
             ViewBag.Categories = categories.ToList();
             return View();
         }
 
         [HttpPost]
         [Authorize(Roles = "User,Administrator")]
-        public ActionResult New(string description, int categoryId, HttpPostedFileBase file)
+        public ActionResult New(string description, int categoryId, int albumId, HttpPostedFileBase file)
         {
             try
             {
@@ -89,6 +92,7 @@ namespace PhotoR.Controllers
                     };
                     photo.CreatedAt = DateTime.Now;
                     photo.UserId = User.Identity.GetUserId();
+                    photo.AlbumId = albumId;
                     db.Photos.Add(photo);
                     db.SaveChanges();
                     TempData["message"] = "Photo was saved!";
@@ -109,6 +113,12 @@ namespace PhotoR.Controllers
         public ActionResult Edit(int id)
         {
             Photo photo = db.Photos.Find(id);
+            var categories = from category in db.Categories
+                             select category;
+            var userId = User.Identity.GetUserId();
+            var albums = db.Albums.Where(a => a.UserId == userId);
+            ViewBag.Categories = categories;
+            ViewBag.Albums = albums;
             return View(photo);
         }
 

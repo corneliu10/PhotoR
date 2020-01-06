@@ -21,17 +21,14 @@
 <hr />
 <br />
 
-@foreach (var photo in ViewBag.Photos)
-{
-    @Html.Label("Photo name")
-    <p>@photo.FileName</p>
-    <div>
-        <img src="~/Assets/@photo.FileName" alt="Photo unavailable" width="100px" height="100px" />
-    </div>
-    <br/>
-    <a class="btn btn-success" href="/Photo/Show/@photo.Id">Show photo</a>
-    <a class="btn btn-success" href="/Photo/Edit/@photo.Id">Edit photo</a>
-    <br />
-    <hr />
-    <br />
-}
+<div id="columns">
+    @foreach (var photo in ViewBag.Photos)
+    {
+        <figure>
+            <a href="/Photo/Show/@photo.Id">
+                <img src="~/Assets/@photo.FileName" alt="Photo unavailable" />
+            </a>
+            <figcaption><i>@photo.Description</i> - created at @photo.CreatedAt.ToString()</figcaption>
+        </figure>
+    }
+</div>

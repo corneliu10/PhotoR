@@ -20,11 +20,17 @@
 </div>
 <br />
 
-@Html.Label("Description")
+@Html.Label("Description:")
 <p>@Model.Description</p>
 
-@Html.Label("Category")
+@Html.Label("Category:")
 <p>@Model.Category.Name</p>
+
+@if (Model.AlbumId != -1)
+{
+    @Html.Label("Album:")
+    <p>@Model.Album.Name</p>
+}
 
 @Html.Label("User")
 <p>@Model.User.UserName</p>
@@ -33,18 +39,19 @@
 @*Delete Form*@
 @using (Html.BeginForm(actionName: "Delete", controllerName: "Photo", routeValues: new { id = @Model.Id }))
 {
-    if (ViewBag.isAdmin || @Model.UserId == ViewBag.CurrentUser.Id)
+    if (ViewBag.isAdmin || @Model.UserId == ViewBag.CurrentUser?.Id)
     {
         @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-success" type="submit">Delete Photo</button>
-        <br />
-        <br />
-        <a class="btn btn-success" href="/Photo/Index/">Show all photos</a>
+        <button class="btn btn-danger" type="submit">Delete Photo</button>
+        @*<a class="btn btn-success" href="/Photo/Index/">Show all photos</a>*@
     }
 }
 
 <br />
+
+<a class="btn btn-success" href="/Photo/Edit/@Model.Id">Edit photo</a>
 <hr />
+
 
 @using (Html.BeginForm(actionName: "AddComment", controllerName: "Photo"))
 {
@@ -60,12 +67,12 @@
 <br />
 
 @{
-    ViewBag.CommentsPermission = (Model.UserId == ViewBag.CurrentUser.Id || ViewBag.IsAdmin);
+    ViewBag.CommentsPermission = (Model.UserId == ViewBag.CurrentUser?.Id || ViewBag.IsAdmin);
 }
 
 @foreach (var comment in ViewBag.Comments)
 {
-    if (comment.UserId == ViewBag.CurrentUser.Id)
+    if (comment.UserId == ViewBag.CurrentUser?.Id)
     {
         <form method="post" action="/Photo/EditComment/@comment.Id">
             @Html.HttpMethodOverride(HttpVerbs.Put)
@@ -80,13 +87,13 @@
     {
         <p>@comment.Content - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
     }
-    if (ViewBag.CommentsPermission || comment.UserId == ViewBag.CurrentUser.Id)
+    if (ViewBag.CommentsPermission || comment.UserId == ViewBag.CurrentUser?.Id)
     {
         using (Html.BeginForm(actionName: "DeleteComment", controllerName: "Photo", routeValues: new { commentId = comment.Id, photoId = Model.Id }))
         {
             @Html.HttpMethodOverride(HttpVerbs.Delete)
             <br />
-            <button class="btn btn-success" type="submit">Delete Comment</button>
+            <button class="btn btn-danger" type="submit">Delete Comment</button>
         }
     }
 
