@@ -50,7 +50,7 @@ namespace PhotoR.Controllers
                     cat.CreatedAt = DateTime.Now;
                     db.Categories.Add(cat);
                     db.SaveChanges();
-                    TempData["message"] = "Categoria a fost adaugata!";
+                    TempData["message"] = "Category was added!";
                     return RedirectToAction("Index");
                 }
                 else
@@ -81,7 +81,7 @@ namespace PhotoR.Controllers
                     if (TryUpdateModel(category))
                     {
                         category.Name = requestCategory.Name;
-                        TempData["message"] = "Categoria a fost modificata!";
+                        TempData["message"] = "Category was modified!";
                         db.SaveChanges();
                     }
                     return RedirectToAction("Index");
@@ -102,7 +102,7 @@ namespace PhotoR.Controllers
         {
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
-            TempData["message"] = "Categoria a fost stearsa!";
+            TempData["message"] = "Category was deleted!";
             db.SaveChanges();
             return RedirectToAction("Index");
         }
