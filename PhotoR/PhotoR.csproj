@@ -202,6 +202,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\black-theme.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -215,6 +216,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="dist\svg\icon-a.svg" />
+    <Content Include="dist\svg\icon-b.svg" />
+    <Content Include="dist\svg\icon-c.svg" />
+    <Content Include="dist\svg\icon-d.svg" />
+    <Content Include="Content\tui-image-editor.css" />
+    <Content Include="Scripts\tui-image-editor.js" />
+    <Content Include="Scripts\white-theme.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -263,6 +271,7 @@
     <Content Include="Views\Photo\Show.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Show.cshtml" />
+    <Content Include="Views\Photo\ImageEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\" />

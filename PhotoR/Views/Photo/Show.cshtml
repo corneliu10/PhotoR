@@ -14,7 +14,9 @@
 @Html.Label("Photo name")
 <p>@Model.FileName</p>
 <div>
-    <img src="~/Assets/@Model.FileName" alt="Photo unavailable" width="200" height="200" />
+    <a href="/Photo/ImageEditor/@Model.Id">
+        <img src="~/Assets/@Model.FileName" alt="Photo unavailable" width="200" height="200" />
+    </a>
 </div>
 <br />
 

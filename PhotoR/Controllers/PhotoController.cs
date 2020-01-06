@@ -226,5 +226,16 @@ namespace PhotoR.Controllers
                 return View($"Show/{photoId}");
             }
         }
+
+        [Authorize(Roles = "User,Administrator")]
+        public ActionResult ImageEditor(int id)
+        {
+            var photo = db.Photos.Find(id);
+            if (photo != null)
+            {
+                ViewBag.fileName = photo.FileName;
+            }
+            return View();
+        }
     }
 }

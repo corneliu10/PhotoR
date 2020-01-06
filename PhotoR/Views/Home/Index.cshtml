@@ -8,7 +8,9 @@
         @Html.Label("Name", "Photo name")
         <p>@photo.FileName - created at @photo.CreatedAt.ToString()</p>
         <div>
-            <img src="~/Assets/@photo.FileName" alt="Photo unavailable" width="100px" height="100px" />
+            <a href="/Photo/Show/@photo.Id">
+                <img src="~/Assets/@photo.FileName" alt="Photo unavailable" width="100" height="100" />
+            </a>
         </div>
         <br />
         <br />

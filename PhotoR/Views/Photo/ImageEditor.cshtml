@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "ImageEditor";
+}
+
+<h2>ImageEditor</h2>
+
+
+<div id="tui-image-editor-container"></div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.3.2/fabric.js"></script>
+<script type="text/javascript" src="https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js"></script>
+<script type="text/javascript" src="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+<script type="text/javascript" src="~/Scripts/tui-image-editor.js"></script>
+<script type="text/javascript" src="~/Scripts/white-theme.js"></script>
+<script type="text/javascript" src="~/Scripts/black-theme.js"></script>
+
+<script>
+    // Image editor
+    var imageEditor = new tui.ImageEditor('#tui-image-editor-container', {
+        includeUI: {
+            loadImage: {
+                path: '/Assets/@ViewBag.fileName',
+                name: 'SampleImage'
+            },
+            theme: blackTheme, // or whiteTheme
+            initMenu: 'filter',
+            menuBarPosition: 'bottom',
+            uiSize: {
+                width: '1000px',
+                height: '700px'
+            },
+        },
+        cssMaxWidth: 700,
+        cssMaxHeight: 700,
+        usageStatistics: false
+    });
+    window.onresize = function () {
+        imageEditor.ui.resizeEditor();
+    }
+</script>
