@@ -36,8 +36,14 @@
                     }
                 </ul>
 
-
                 @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right navbar-btn">
+                    <li>
+                        <form action="/Photo/New" method="get">
+                            <input type="image" src="~/Content/cloud-computing.png" width="32" height="32" style="margin-left: 16px">
+                        </form>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right navbar-btn">
                     <li>
                         @using (Html.BeginForm("Search", "Photo"))
@@ -46,6 +52,7 @@
                         }
                     </li>
                 </ul>
+
             </div>
         </div>
     </div>
