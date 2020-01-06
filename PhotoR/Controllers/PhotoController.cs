@@ -26,15 +26,13 @@ namespace PhotoR.Controllers
             return View();
         }
 
-        public ActionResult Search(string description)
+        public ActionResult Search(string text)
         {
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }
-            var photos = from photo in db.Photos
-                         where photo.Description.StartsWith(description)
-                         select photo;
+            var photos = db.Photos.Where(p => p.Description.StartsWith(text) || p.FileName.StartsWith(text));
             ViewBag.Photos = photos;
             return View("Index");
         }

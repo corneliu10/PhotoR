@@ -23,18 +23,29 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if (User.IsInRole("Administrator")) {
-                    <li>@Html.ActionLink("Category", "Index", "Category")</li>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li>@Html.ActionLink("Category", "Index", "Category")</li>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <li>@Html.ActionLink("Album", "Index", "Album")</li>
-                    <li>@Html.ActionLink("Photo", "Index", "Photo")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li>@Html.ActionLink("My profile", "Index", "Profile")</li>
+                        <li>@Html.ActionLink("Album", "Index", "Album")</li>
+                        <li>@Html.ActionLink("Photo", "Index", "Photo")</li>
+                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        <li>@Html.ActionLink("My profile", "Index", "Profile")</li>
                     }
                 </ul>
+
+
                 @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right navbar-btn">
+                    <li>
+                        @using (Html.BeginForm("Search", "Photo"))
+                        {
+                            <input name="text" type="text" class="form-control" placeholder="Search..." />
+                        }
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
