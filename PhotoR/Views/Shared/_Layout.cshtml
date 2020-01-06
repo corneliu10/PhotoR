@@ -9,6 +9,19 @@
     <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.css" rel="stylesheet">
     <link type="text/css" href="~/Content/tui-image-editor.css" rel="stylesheet">
     <link type="text/css" href="~/Content/imageList.css" rel="stylesheet">
+
+    <style>
+        #searchInput {
+            width: 150px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+
+            /* When the input field gets focus, change its width to 100% */
+           #searchInput:focus {
+                width: 220px;
+            }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -48,7 +61,7 @@
                     <li>
                         @using (Html.BeginForm("Search", "Photo"))
                         {
-                            <input name="text" type="text" class="form-control" placeholder="Search..." />
+                            <input id="searchInput" name="text" type="text" class="form-control" placeholder="Search..." />
                         }
                     </li>
                 </ul>
