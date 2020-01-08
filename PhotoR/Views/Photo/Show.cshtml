@@ -3,99 +3,101 @@
     ViewBag.Title = "Show Photo";
 }
 
+<br />
+
 @if (TempData.ContainsKey("message"))
 {
     <h3 class="alert alert-info" role="alert">@TempData["message"]</h3>
 }
 
-<h2>@ViewBag.Title</h2>
 
-
-@Html.Label("Photo name")
-<p>@Model.FileName</p>
-<div>
-    <a href="/Photo/ImageEditor/@Model.Id">
-        <img src="~/Assets/@Model.FileName" alt="Photo unavailable" width="200" height="200" />
-    </a>
-</div>
-<br />
-
-@Html.Label("Description:")
-<p>@Model.Description</p>
-
-@Html.Label("Category:")
-<p>@Model.Category.Name</p>
-
-@if (Model.AlbumId != -1)
-{
-    @Html.Label("Album:")
-    <p>@Model.Album.Name</p>
-}
-
-@Html.Label("User")
-<p>@Model.User.UserName</p>
-
-
-@*Delete Form*@
-@using (Html.BeginForm(actionName: "Delete", controllerName: "Photo", routeValues: new { id = @Model.Id }))
-{
-    if (ViewBag.isAdmin || @Model.UserId == ViewBag.CurrentUser?.Id)
-    {
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-danger" type="submit">Delete Photo</button>
-        @*<a class="btn btn-success" href="/Photo/Index/">Show all photos</a>*@
-    }
-}
-
-<br />
-
-<a class="btn btn-success" href="/Photo/Edit/@Model.Id">Edit photo</a>
-<hr />
-
-
-@using (Html.BeginForm(actionName: "AddComment", controllerName: "Photo"))
-{
-    @Html.Label("Comment", "Add comment")
-    @Html.TextBox("content", null, new { @class = "form-control" })
-
-    <input name="photoId" type="hidden" value="@Model.Id" />
+<div class="card card-4">
+    @Html.Label("Photo name:")
+    <p>@Model.FileName</p>
+    <div>
+        <a href="/Photo/ImageEditor/@Model.Id">
+            <img src="~/Assets/@Model.FileName" alt="Photo unavailable" style="max-width:400px; max-height:300px" />
+        </a>
+    </div>
     <br />
 
-    <button class="btn btn-success" type="submit">Add comment</button>
-}
+    @Html.Label("Description:")
+    <p>@Model.Description</p>
 
-<br />
+    @Html.Label("Category:")
+    <p>@Model.Category.Name</p>
 
-@{
-    ViewBag.CommentsPermission = (Model.UserId == ViewBag.CurrentUser?.Id || ViewBag.IsAdmin);
-}
-
-@foreach (var comment in ViewBag.Comments)
-{
-    if (comment.UserId == ViewBag.CurrentUser?.Id)
+    @if (Model.AlbumId != -1)
     {
-        <form method="post" action="/Photo/EditComment/@comment.Id">
-            @Html.HttpMethodOverride(HttpVerbs.Put)
-
-            <p><input type="text" name="Content" value="@comment.Content" /> - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
-            <input type="hidden" value="@Model.Id" name="photoId" />
-
-            <button class="btn btn-success" type="submit">Save edits</button>
-        </form>
+        @Html.Label("Album:")
+        <p>@Model.Album.Name</p>
     }
-    else
-    {
-        <p>@comment.Content - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
-    }
-    if (ViewBag.CommentsPermission || comment.UserId == ViewBag.CurrentUser?.Id)
-    {
-        using (Html.BeginForm(actionName: "DeleteComment", controllerName: "Photo", routeValues: new { commentId = comment.Id, photoId = Model.Id }))
+
+    @Html.Label("User:")
+    <p>@Model.User.UserName</p>
+
+    <div>
+        <a class="btn btn-success" href="/Photo/Edit/@Model.Id">Edit photo</a>
+        <br />
+        <br />
+        @using (Html.BeginForm(actionName: "Delete", controllerName: "Photo", routeValues: new { id = @Model.Id }))
         {
-            @Html.HttpMethodOverride(HttpVerbs.Delete)
-            <br />
-            <button class="btn btn-danger" type="submit">Delete Comment</button>
+            if (ViewBag.isAdmin || @Model.UserId == ViewBag.CurrentUser?.Id)
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-danger" type="submit">Delete Photo</button>
+            }
         }
+    </div>
+
+</div>
+
+<div class="card card-4">
+    @{
+        ViewBag.CommentsPermission = (Model.UserId == ViewBag.CurrentUser?.Id || ViewBag.IsAdmin);
+    }
+    @if (ViewBag.Comments.Count > 0)
+    {
+       @Html.Label("Comments:")
+    }
+    @foreach (var comment in ViewBag.Comments)
+    {
+        if (comment.UserId == ViewBag.CurrentUser?.Id)
+        {
+            <form method="post" action="/Photo/EditComment/@comment.Id">
+                @Html.HttpMethodOverride(HttpVerbs.Put)
+
+                <p><input type="text" name="Content" value="@comment.Content" class="form-control" /> - by <b>@comment.User.UserName</b> - @comment.CreatedAt.ToString()</p>
+                <input type="hidden" value="@Model.Id" name="photoId" />
+
+                <button class="btn btn-success" type="submit">Save edits</button>
+            </form>
+        }
+        else
+        {
+            <p>@comment.Content - by @comment.User.UserName - @comment.CreatedAt.ToString()</p>
+        }
+        if (ViewBag.CommentsPermission || comment.UserId == ViewBag.CurrentUser?.Id)
+        {
+            using (Html.BeginForm(actionName: "DeleteComment", controllerName: "Photo", routeValues: new { commentId = comment.Id, photoId = Model.Id }))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <br />  
+                <button class="btn btn-danger" type="submit">Delete</button>
+            }
+        }
+        <hr />
+    }
+    @using (Html.BeginForm(actionName: "AddComment", controllerName: "Photo"))
+    {
+        @Html.Label("content", "Add comment:")
+        @Html.TextBox("content", null, new { @class = "form-control" })
+
+        <input name="photoId" type="hidden" value="@Model.Id" />
+        <br />
+
+        <button class="btn btn-success" type="submit">Add comment</button>
     }
 
-    <hr />
-}
+    <br />
+</div>
