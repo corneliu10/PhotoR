@@ -3,6 +3,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
 using PhotoR.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 [assembly: OwinStartupAttribute(typeof(PhotoR.Startup))]
 namespace PhotoR
@@ -40,7 +42,31 @@ namespace PhotoR
                 if (adminCreated.Succeeded)
                 {
                     userManager.AddToRole(user.Id, "Administrator");
+                    context.Albums.Add(new Album
+                    {
+                        Name = "Default",
+                        CreatedAt = System.DateTime.Now,
+                        UserId = user.Id,
+                    });
+                    context.SaveChanges();
                 }
+            }
+
+            if (context.Categories.Count() == 0)
+            {
+                context.Categories.AddRange(new List<Category>{
+                    new Category
+                    {
+                        Name = "Nature",
+                        CreatedAt = System.DateTime.Now,
+                    },
+                    new Category
+                    {
+                        Name = "Art",
+                        CreatedAt = System.DateTime.Now
+                    }
+                });
+                context.SaveChanges();
             }
 
             if (!roleManager.RoleExists("User"))

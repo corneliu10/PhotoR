@@ -13,16 +13,24 @@
 
 @foreach (var category in ViewBag.Categories)
 {
-    @Html.Label("Name", "Category name")
-    <p>@category.Name</p>
-    <a class="btn btn-success" href="/Category/Show/@category.Id">Show category</a>
-    <a class="btn btn-success" href="/Category/Edit/@category.Id">Edit category</a>
-    <br />
-    <hr />
-    <br />
+    <div class="card card-4">
+        @Html.Label("Name", "Category name:")
+        <p>@category.Name</p>
+        <div>
+
+            <a class="btn btn-success" href="/Category/Show/@category.Id">Show category</a>
+            @if (User.IsInRole("Administrator"))
+            {
+                <a class="btn btn-success" href="/Category/Edit/@category.Id">Edit category</a>
+            }
+        </div>
+    </div>
 }
+
+<br />
 <br />
 <a class="btn btn-info" href="/Category/New">Add category</a>
-<br /><br />
+<br />
+<br />
 <br />
 

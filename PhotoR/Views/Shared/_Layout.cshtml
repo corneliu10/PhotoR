@@ -9,6 +9,53 @@
     <link type="text/css" href="https://uicdn.toast.com/tui-color-picker/v2.2.3/tui-color-picker.css" rel="stylesheet">
     <link type="text/css" href="~/Content/tui-image-editor.css" rel="stylesheet">
     <link type="text/css" href="~/Content/imageList.css" rel="stylesheet">
+
+    <style>
+        #searchInput {
+            width: 150px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+
+        /* When the input field gets focus, change its width to 100% */
+        #searchInput:focus {
+            width: 220px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 5px;
+            display: inline-grid;
+            margin: 1rem;
+            position: relative;
+            padding: 2rem;
+        }
+
+        .card-1 {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        }
+
+            .card-1:hover {
+                box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            }
+
+        .card-2 {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        .card-3 {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        }
+
+        .card-4 {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+
+        .card-5 {
+            box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,18 +70,34 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if (User.IsInRole("Administrator")) {
                     <li>@Html.ActionLink("Category", "Index", "Category")</li>
-                    }
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <li>@Html.ActionLink("Album", "Index", "Album")</li>
-                    <li>@Html.ActionLink("Photo", "Index", "Photo")</li>
-                    <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                    <li>@Html.ActionLink("My profile", "Index", "Profile")</li>
+                        <li>@Html.ActionLink("Album", "Index", "Album")</li>
+                    }
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
                     }
                 </ul>
+
                 @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right navbar-btn">
+                    <li>
+                        <form action="/Photo/New" method="get">
+                            <input type="image" src="~/Content/cloud-computing.png" width="32" height="32" style="margin-left: 16px">
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right navbar-btn">
+                    <li>
+                        @using (Html.BeginForm("Search", "Photo"))
+                        {
+                            <input id="searchInput" name="text" type="text" class="form-control" placeholder="Search..." />
+                        }
+                    </li>
+                </ul>
+
             </div>
         </div>
     </div>

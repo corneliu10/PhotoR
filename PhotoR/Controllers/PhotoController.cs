@@ -26,15 +26,13 @@ namespace PhotoR.Controllers
             return View();
         }
 
-        public ActionResult Search(string description)
+        public ActionResult Search(string text)
         {
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.message = TempData["message"].ToString();
             }
-            var photos = from photo in db.Photos
-                         where photo.Description.StartsWith(description)
-                         select photo;
+            var photos = db.Photos.Where(p => p.Description.StartsWith(text) || p.FileName.StartsWith(text));
             ViewBag.Photos = photos;
             return View("Index");
         }
@@ -44,7 +42,7 @@ namespace PhotoR.Controllers
             Photo photo = db.Photos.Find(id);
 
             // get Comments
-            ViewBag.Comments = db.Comments.Where(c => c.PhotoId == id).OrderByDescending(c => c.CreatedAt);
+            ViewBag.Comments = db.Comments.Where(c => c.PhotoId == id).OrderByDescending(c => c.CreatedAt).ToList();
             ViewBag.CurrentUser = UsersHelper.GetUserById(User.Identity.GetUserId());
             ViewBag.IsAdmin = UsersHelper.IsUserAdmin(ViewBag.CurrentUser);
 

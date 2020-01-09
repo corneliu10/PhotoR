@@ -5,14 +5,28 @@
 
 <br />
 
-@Html.Label("Album name:");
-<p>@Model.Name</p>
+<div class="card card-4">
 
-@Html.Label("Album owner:")
-<p>@Model.User.UserName</p>
+    @Html.Label("Album name:")
+    <p>@Model.Name</p>
 
+    @Html.Label("Album owner:")
+    <p>@Model.User.UserName</p>
+
+
+    <br />
+    @*Delete Form*@
+    @using (Html.BeginForm(actionName: "Delete", controllerName: "Album", routeValues: new { id = @Model.Id }))
+    {
+
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+        <button class="btn btn-danger" type="submit">Delete Album</button>
+    }
+
+</div>
 <br />
-
+<br />
 @if (@Model.Photos.Count > 0)
 {
     @Html.Label("Album photos:")
@@ -27,15 +41,4 @@
             </figure>
         }
     </div>
-}
-
-<br />
-
-@*Delete Form*@
-@using (Html.BeginForm(actionName: "Delete", controllerName: "Album", routeValues: new { id = @Model.Id }))
-{
-
-    @Html.HttpMethodOverride(HttpVerbs.Delete)
-
-    <button class="btn btn-success" type="submit">Delete Album</button>
 }

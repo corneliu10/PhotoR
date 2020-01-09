@@ -13,15 +13,17 @@
 
 @foreach (var album in ViewBag.Albums)
 {
-    @Html.Label("Name", "Album name")
-    <p>@album.Name</p>
-    <a class="btn btn-success" href="/Album/Show/@album.Id">Show album</a>
-    <a class="btn btn-success" href="/Album/Edit/@album.Id">Edit album</a>
-    <br />
-    <hr />
-    <br />
+    <div class="card card-4">
+        @Html.Label("Name", "Album name:")
+        <p>@album.Name</p>
+        <div>
+            <a class="btn btn-success" href="/Album/Show/@album.Id">Show album</a>
+            <a class="btn btn-success" href="/Album/Edit/@album.Id">Edit album</a>
+        </div>
+    </div>
 }
 
+<br />
 <br />
 <a class="btn btn-info" href="/Album/New">Add new album</a>
 <br />
